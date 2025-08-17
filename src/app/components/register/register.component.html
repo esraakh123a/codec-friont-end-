@@ -1,1 +1,90 @@
-<p>register works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <!-- Name -->
+  <div class="mb-3">
+    <label for="nameInput" class="form-label">Full Name</label>
+    <input type="text" class="form-control" id="nameInput" formControlName="name">
+
+    <div class="alert alert-danger mt-2" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+      <small *ngIf="name?.errors?.['required']">Name is required.</small><br>
+      <small *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters.</small><br>
+      <small *ngIf="name?.errors?.['maxlength']">Name must be less than 50 characters.</small><br>
+      <small *ngIf="name?.errors?.['pattern']">
+        Name must contain only Arabic/English letters and single spaces.
+      </small>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+      formControlName="email">
+
+    <div class="alert alert-danger mt-2" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <small *ngIf="email?.errors?.['required']">Email is required.</small><br>
+      <small *ngIf="email?.errors?.['email']">Please enter a valid email.</small><br>
+      <small *ngIf="email?.errors?.['pattern']">Please enter a valid PATTERN.</small><br>
+      <small *ngIf="email?.errors?.['hasUppercase']">Email must be lowercase only.</small>
+    </div>
+
+
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
+  </div>
+
+  
+
+  <!-- Password -->
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+  </div>
+  <div class="alert alert-danger mt-2" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+    <small *ngIf="password?.errors?.['required']">Password is required.</small><br>
+    <small *ngIf="password?.errors?.['pattern']">
+      Must contain uppercase, lowercase, number, and special character.
+    </small><br>
+    <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters.</small>
+  </div>
+
+  <!-- Phone Number -->
+  <div class="mb-3">
+    <label>Phone Number</label>
+    <input type="text" class="form-control" formControlName="phonenumber">
+
+    <div class="alert alert-danger mt-2" *ngIf="phonenumber?.invalid && (phonenumber?.dirty || phonenumber?.touched)">
+      <small *ngIf="phonenumber?.errors?.['required']">Phone number is required.</small><br>
+      <small *ngIf="phonenumber?.errors?.['invalidPhone']">
+        Phone number must be 10–15 digits only.
+      </small>
+    </div>
+  </div>
+
+  <!-- City -->
+  <div class="mb-3">
+    <label>City</label>
+    <input type="text" class="form-control" formControlName="city">
+    <div class="alert alert-danger mt-2" *ngIf="city?.invalid && (city?.dirty || city?.touched)">
+      <small *ngIf="city?.errors?.['required']">City is required.</small><br>
+      <small *ngIf="city?.errors?.['invalidCity']">City name must be at least 3 letters (Arabic or English).</small>
+    </div>
+  </div>
+
+  <!-- Role -->
+  <div class="mb-3">
+    <label>Role</label>
+    <select class="form-control" formControlName="role">
+      <option value="">-- Select Role --</option>
+      <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
+    </select>
+    <div class="alert alert-danger mt-2" *ngIf="role?.invalid && (role?.dirty || role?.touched)">
+      <small *ngIf="role?.errors?.['required']">Role is required.</small>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>

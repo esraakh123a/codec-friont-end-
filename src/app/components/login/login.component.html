@@ -1,1 +1,41 @@
-<p>login works!</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Email -->
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+      formControlName="emailvar">
+
+    <div class="alert alert-danger mt-2" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <small *ngIf="email?.errors?.['required']">Email is required.</small><br>
+      <small *ngIf="email?.errors?.['email']">Please enter a valid email.</small><br>
+      <small *ngIf="email?.errors?.['pattern']">Please enter a valid PATTERN.</small><br>
+      <small *ngIf="email?.errors?.['hasUppercase']">Email must be lowercase only.</small>
+    </div>
+
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="passwordvar">
+  </div>
+  <div class="alert alert-danger mt-2" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+    <small *ngIf="password?.errors?.['required']">password is required.</small><br>
+
+    <small *ngIf="password?.errors?.['pattern']">/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$.</small><br>
+
+    <small *ngIf="password?.errors?.['minlength']">minLength(8).</small>
+  </div>
+
+
+
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>
+
